@@ -19,6 +19,7 @@ import pandas as pd
 from tqdm import tqdm
 import sys
 import os
+import json
 
 # We're going to explicitly use a local installation of Pyserini (as opposed to a pip-installed one).
 # Comment these lines out to use a pip-installed one instead.
@@ -37,7 +38,10 @@ if __name__ == '__main__':
                         help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
     args = parser.parse_args()
     device = args.device
-    topics = get_topics(args.topics)
+
+    #topics = get_topics(args.topics)
+    with open(args.topics,'r') as f:
+        topics = json.load(f)
 
     if not os.path.exists(args.output):
         os.mkdir(args.output)
